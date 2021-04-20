@@ -1,0 +1,17 @@
+{
+  "name": "apigateway-records",
+  "version": "1.0.0",
+  "description": "Api gateway template and fetch records from db",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "serverless-pseudo-parameters": "^2.5.0"
+  }
+}

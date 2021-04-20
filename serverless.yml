@@ -1,0 +1,42 @@
+service: api-gateway-records
+
+frameworkVersion: '2'
+
+
+provider:
+  name: aws
+  stage: ${opt:stage,'dev'}
+  runtime: nodejs12.x
+  timeout: 60
+  apiName: apigateway-records
+  resourcePolicy:
+    - Effect: Allow
+      Principal: '*'
+      Action: execute-api:Invoke
+      Resource:
+        - execute-api:/${opt:stage, self:provider.stage}/GET/users
+      
+plugins:
+  - serverless-pseudo-parameters
+
+
+functions:
+  gatewayLambda: ${file(./gatewayLambda.yml):gatewayLambda}
+
+
+resources:
+  Resources:
+    GatewayResponseDefault4XX:
+      Type: 'AWS::ApiGateway::GatewayResponse'
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseType: DEFAULT_4XX
+        RestApiId:
+          Ref: 'ApiGatewayRestApi'
+
+
+
+
+

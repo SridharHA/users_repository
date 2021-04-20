@@ -1,0 +1,30 @@
+gatewayLambda:
+    handler: index.handler
+    name: lambda-get-records
+    description: Lambda function for apigateway-records
+    role: arn:aws:iam::#{AWS::AccountId}:role/lambda_role
+    maximumRetryAttempts: 0
+    events:
+      - http:
+          path: users
+          method: get
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: true
+          authorizer: 
+            arn: arn:aws:cognito-idp:us-east-1:419287502278:userpool/us-east-1_vn1MDgmkf
+            identitySource: method.request.header.Authorization
+            type: token
+          request:
+             parameters:
+               querystrings:
+                  email: true
+                  role: true
+
