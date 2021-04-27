@@ -4,9 +4,10 @@
  * 2. Fetch records from dynamodb based on roles
  * 3. Return the successful records or error codes to caller.
  */
-const AWS = require('aws-sdk');
-const docClient = new AWS.DynamoDB.DocumentClient();
+
 exports.handler = async (event, context) => {
+    const AWS = require('aws-sdk');
+    const docClient = new AWS.DynamoDB.DocumentClient();
     // 
     console.log(event.queryStringParameters.email);
     console.log(event.queryStringParameters.role);
